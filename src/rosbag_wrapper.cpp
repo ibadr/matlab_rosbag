@@ -1,7 +1,7 @@
 
 #include "rosbag_wrapper.hpp"
 
-#include <wordexp.h>
+
 
 #include "matlab_util.hpp"
 
@@ -388,15 +388,7 @@ void InstanceManager::mex(int nlhs, mxArray *plhs[],
 static InstanceManager g_manager;
 
 ROSBagWrapper::ROSBagWrapper(const string &fname) : path_(fname), view_(NULL) {
-  // Word expansion of filename (e.g. tilde expands to home directory)
-  wordexp_t fname_exp;
-  if (wordexp(fname.c_str(), &fname_exp, 0) != 0) {
-    throw invalid_argument("Invalid filename: " + fname);
-  }
-  string path = fname_exp.we_wordv[0];
-  wordfree(&fname_exp);
-
-  bag_.open(path.c_str(), rosbag::bagmode::Read);
+  bag_.open(fname.c_str(), rosbag::bagmode::Read);
   info_.setBag(&bag_);
 }
 
