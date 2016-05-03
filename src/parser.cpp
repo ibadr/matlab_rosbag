@@ -6,6 +6,10 @@
 
 #include <algorithm>
 
+#if _MSC_VER < 1900
+#define snprintf _snprintf // for snprintf on Visual Studio < 2015
+#endif
+
 #include <boost/algorithm/string.hpp>
 #include <boost/regex.hpp>
 #include <boost/algorithm/string/regex.hpp>
